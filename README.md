@@ -78,11 +78,11 @@ You can find the installation video [here](https://www.youtube.com/watch?v=cXBa6
   > Don't want to use OpenAI and want to use Ollama instead for a completely private experience? You can find the instructions [here](https://docs.quivr.app/developers/contribution/llm/ollama).
 
 - **Step 4**: Launch the project
-
+  in the supabase folder,
   ```bash
   supabase start
   ```
-  and then 
+  and then in the main project folder
   ```bash
   docker compose pull
   docker compose up
