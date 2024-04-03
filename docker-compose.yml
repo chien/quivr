@@ -1,25 +1,25 @@
 version: "3.8"
 
 services:
-  frontend:
-    image: quivr-frontend-prebuilt
-    pull_policy: never
-    build:
-      context: frontend
-      dockerfile: Dockerfile
-      args:
-        - NEXT_PUBLIC_ENV=local
-        - NEXT_PUBLIC_BACKEND_URL=${NEXT_PUBLIC_BACKEND_URL}
-        - NEXT_PUBLIC_SUPABASE_URL=${NEXT_PUBLIC_SUPABASE_URL}
-        - NEXT_PUBLIC_SUPABASE_ANON_KEY=${NEXT_PUBLIC_SUPABASE_ANON_KEY}
-        - NEXT_PUBLIC_CMS_URL=${NEXT_PUBLIC_CMS_URL}
-        - NEXT_PUBLIC_FRONTEND_URL=${NEXT_PUBLIC_FRONTEND_URL}
-    container_name: web
-    depends_on:
-      - backend-core
-    restart: always
-    ports:
-      - 3000:3000
+  # frontend:
+    # image: quivr-frontend-prebuilt
+    # pull_policy: never
+    # build:
+      # context: frontend
+      # dockerfile: Dockerfile
+      # args:
+        # - NEXT_PUBLIC_ENV=local
+        # - NEXT_PUBLIC_BACKEND_URL=${NEXT_PUBLIC_BACKEND_URL}
+        # - NEXT_PUBLIC_SUPABASE_URL=${NEXT_PUBLIC_SUPABASE_URL}
+        # - NEXT_PUBLIC_SUPABASE_ANON_KEY=${NEXT_PUBLIC_SUPABASE_ANON_KEY}
+        # - NEXT_PUBLIC_CMS_URL=${NEXT_PUBLIC_CMS_URL}
+        # - NEXT_PUBLIC_FRONTEND_URL=${NEXT_PUBLIC_FRONTEND_URL}
+    # container_name: web
+    # depends_on:
+      # - backend-core
+    # restart: always
+    # ports:
+      # - 3000:3000
 
   backend-core:
     image: stangirard/quivr-backend-prebuilt:latest
@@ -29,23 +29,27 @@ services:
     build:
       context: backend
       dockerfile: Dockerfile
+      args:
+        - DEV_MODE=true
     container_name: backend-core
     healthcheck:
       test: ["CMD", "curl", "http://localhost:5050/healthz"]
     command:
       - "uvicorn"
       - "main:app"
+      - "--reload"
       - "--host"
       - "0.0.0.0"
       - "--port"
       - "5050"
       - "--workers"
-      - "6"
+      - "3"
     restart: always
     volumes:
       - ./backend/:/code/
     ports:
       - 5050:5050
+      - 5678:5678 # debug port
 
   redis:
     image: redis:latest@sha256:a7cee7c8178ff9b5297cb109e6240f5072cdaaafd775ce6b586c3c704b06458e

@@ -100,6 +100,13 @@ You can find the installation video [here](https://www.youtube.com/watch?v=cXBa6
 
   You can access supabase at [http://localhost:54323](http://localhost:54323)
 
+
+- ** Development Notes
+
+  If running into issue to run with the docker-compose.dev.yml, use the modified docker-cmpose.yml instead with the following instruction to run frontend code.
+  - export frontend related env vars from the .env file
+  - ``yarn dev`` in the frontend project
+
 ## Updating Quivr 🚀
 
 - **Step 1**: Pull the latest changes

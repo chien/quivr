@@ -64,25 +64,21 @@ const App = ({ children }: PropsWithChildren): JSX.Element => {
         src="https://cdn.octolane.com/tag.js?pk=0a213725640302dff773"
       />
 
-      <PostHogProvider client={posthog}>
-        <IntercomProvider>
-          <div className="flex flex-1 flex-col overflow-auto">
-            <SearchModalProvider>
-              <SearchModal />
-              <div className="relative h-full w-full flex justify-stretch items-stretch overflow-auto">
-                <Menu />
-                <div
-                  onClick={onClickOutside}
-                  className="flex-1 overflow-scroll"
-                >
-                  {children}
-                </div>
-                <UpdateMetadata />
-              </div>
-            </SearchModalProvider>
+      <div className="flex flex-1 flex-col overflow-auto">
+        <SearchModalProvider>
+          <SearchModal />
+          <div className="relative h-full w-full flex justify-stretch items-stretch overflow-auto">
+            <Menu />
+            <div
+              onClick={onClickOutside}
+              className="flex-1 overflow-scroll"
+            >
+              {children}
+            </div>
+            <UpdateMetadata />
           </div>
-        </IntercomProvider>
-      </PostHogProvider>
+        </SearchModalProvider>
+      </div>
     </>
   );
 };
